@@ -8,7 +8,7 @@ LABEL version="0.4"
 LABEL description="Semantic mapping docker file"
 
 # optional, if the default user is not "root", you might need to switch to root here and at the end of the script to the original user again.
-# e.g. 
+# e.g.
 # USER root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -66,8 +66,6 @@ RUN echo '/usr/local/lib/x86_64-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-
-RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends ros-kinetic-desktop-full
 

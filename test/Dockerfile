@@ -8,5 +8,5 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["test.py"]
-ENTRYPOINT ["python3"]
+# CMD ["test.py"]
+# ENTRYPOINT ["python3"]
