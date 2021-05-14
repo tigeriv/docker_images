@@ -8,7 +8,7 @@ LABEL version="0.4"
 LABEL description="Semantic mapping docker file"
 
 # optional, if the default user is not "root", you might need to switch to root here and at the end of the script to the original user again.
-# e.g.
+# e.g. 
 # USER root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
