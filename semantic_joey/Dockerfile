@@ -1,11 +1,11 @@
-FROM nvidia/cuda:9.0-cudnn7-devel
+FROM tensorflow/tensorflow:1.12.0-gpu
 # e.g. FROM osrf/ros:kinetic-desktop-full
 
 # author
 MAINTAINER Ray Zhang
 
-LABEL version="0.4"
-LABEL description="Semantic mapping docker file"
+LABEL version="0.6"
+LABEL description="Melodic ROS Semantic mapping docker file"
 
 # optional, if the default user is not "root", you might need to switch to root here and at the end of the script to the original user again.
 # e.g.
@@ -13,6 +13,7 @@ LABEL description="Semantic mapping docker file"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         pkg-config \
+        mesa-utils \
         libxau-dev \
         libxdmcp-dev \
         libxcb1-dev \
@@ -24,7 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         wget \
         curl \
         cmake \
-        mesa-utils \
         vim \ 
         build-essential \
         unzip \
@@ -40,36 +40,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
          libusb-1.0-0-dev \
          libgtest-dev \
          pkg-config \
-         libvtk6-dev \
-         libboost-all-dev \
-         python-pip \
         emacs && \
     rm -rf /var/lib/apt/lists/*
 
-# replace with other Ubuntu version if desired
-# see: https://hub.docker.com/r/nvidia/opengl/
-COPY --from=nvidia/opengl:1.1-glvnd-runtime-ubuntu16.04 \
-  /usr/local/lib/x86_64-linux-gnu \
-  /usr/local/lib/x86_64-linux-gnu
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
-# replace with other Ubuntu version if desired
-# see: https://hub.docker.com/r/nvidia/opengl/
-COPY --from=nvidia/opengl:1.1-glvnd-runtime-ubuntu16.04 \
-  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json \
-  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json
+#RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
-RUN echo '/usr/local/lib/x86_64-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
-    ldconfig && \
-    echo '/usr/local/$LIB/libGL.so.1' >> /etc/ld.so.preload && \
-    echo '/usr/local/$LIB/libEGL.so.1' >> /etc/ld.so.preload
+#RUN apt-get update
 
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-
-RUN apt-get install -y --no-install-recommends ros-melodic-desktop-full
-
-RUN pip install tensorflow-gpu-1.8.0
+#RUN apt-get install -y --no-install-recommends ros-melodic-desktop-full
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
