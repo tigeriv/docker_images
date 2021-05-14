@@ -9,7 +9,7 @@ LABEL description="Melodic ROS Semantic mapping docker file"
 
 # optional, if the default user is not "root", you might need to switch to root here and at the end of the script to the original user again.
 # e.g.
-# USER root
+USER root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         pkg-config \
@@ -57,4 +57,4 @@ ENV NVIDIA_VISIBLE_DEVICES \
 ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-# USER original_user
+USER tigeriv
