@@ -51,9 +51,6 @@ RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends ros-kinetic-ros-base
 
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-RUN source ~/.bashrc
-
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
